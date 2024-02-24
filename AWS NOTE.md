@@ -85,7 +85,7 @@ Amazon 弹性计算云（Amazon EC2）在 Amazon Web 服务（AWS）云中提供
 
 Amazon EBS 配置的 **IOPS SSD（io1）**不正确，因为这不是最具成本效益的EBS 类型，**主要用于需要持续 IOPS 性能的关键业务应用程序。**Amazon **EBS 吞吐量优化 HDD（st1）****是不正确的，因为它主要用于频繁访问、吞吐量高的工作负载。虽然它是一个低成本的 HDD 卷，但**不能用作系统启动卷**。亚马逊 EBS 冷硬盘（sc1）不正确。尽管 Amazon EBS 冷硬盘与通用 SSD 相比成本更低，但它**不能用作系统引导卷**。
 
-
+多重复加权仅在IOPS SSD（io1,io2）卷上受支持
 
 https://tutorialsdojo.com/amazon-ebs/
 
@@ -109,11 +109,13 @@ S3<EFS<EBS 的
 
 ## S3
 
+Amazon S3 access control lists (ACLs) Amazon S3 访问控制列表（ACL）
+
 S3 支持以下可以发布事件的目的地：-亚马逊简单通知服务（Amazon SNS）主题-Amazon 简单队列服务（Amazon SQS）队列- AWS Lambda
 
 因为 Amazon S3 向 Amazon MQ 提供公共事件消息。您应该使用 Amazon SQS
 
-AWS Global Accelerator,此服务主要用于优化从用户到应用程序的路径，从而提高 TCP 和 UDP 流量的性能
+AWS Global Accelerator,此服务主要用于优化从用户到应用程序的路径，从而提高 **TCP 和 UDP** 流量的性能
 
 Transfer Acceleration S3 传输加速（S3TA）减少了可能影响传输的互联网路由、拥塞和速度的可变性，并从逻辑上缩短了远程应用到 S3 的距离。S3TA 通过 Amazon CloudFront 全球分布的边缘位置和AWS 骨干网络路由流量，并通过网络协议优化，提高传输性能。因此，转移加速度是正确答案。
 
@@ -122,6 +124,8 @@ Transfer Acceleration S3 传输加速（S3TA）减少了可能影响传输的互
 尽管 S3-IA 的成本低于 S3 标准存储类，但它仍然比 S3 One Zone IA 更昂贵。请记住，文件很容易复制，因此您可以安全地将数据移动到 S3 One ZoneIA，如果发生中断，您可以简单地再次生成丢失的数据。
 
  **Amazon S3-智能分层**是不正确的，因为与标准存储类和 **S3 标准-不频繁访问**相比，智能分层存储类需要额外的费用来监控和自动化 S3 存储桶中的每个对象
+
+S3 Glacier 加急搜索 几分钟 成本高
 
 ### 最小存储时间
 
@@ -143,7 +147,15 @@ S3 标准 IA 在 30 天内从 S3 标准 IA 中删除的数据仍将在整整 30 
 
    
 
+s3对象锁
+
 Amazon S3 文件网关使本地应用程序能够使用 NFS 和 SMB 文件接口访问几乎无限的云存储。它将频繁访问的数据无缝移动到低延迟缓存，同时将较冷的数据存储在 Amazon S3 中，并使用 S3 生命周期策略随着时间的推移在存储类之间转换数据。在这种情况下，公司老化的 NAS 阵列可以替换为 Amazon S3 文件网关，该网关向客户端工作站提供相同的 NFS 和 SMB 共享。然后可以将数据迁移到 Amazon S3 并使用 S3 生命周期策略进行管理
+
+## AMAZON MACIE
+
+一项数据安全服务，它使用机器学习ML和模式来匹配来发现并帮助保护您的敏感数据
+
+自动扫描S3中的对象，并识别个人身份信息
 
 ## AWS Storage Gateway
 
@@ -167,6 +179,8 @@ Fargate 启动模式和 EC2 启动模式。使用 Fargate，您需要支付容�
 
 首先使用 AWS 模式转换工具将源模式和代码转换为与目标数据库的模式和代码相匹配，然后使用 AWS 数据库迁移服务将数据从源数据库迁移到目标数据库。迁移期间，AWS 数据库迁移服务将自动完成所有必需的数据类型转换。
 
+减少扩展练习的停机时间
+
 Amazon RDS 是适用于**在线事务处理（OLTP）应用程序的数据库服务**。但是，该问题要求提供 web 层而非数据库层的 AWS 服务列表。
 
 “您可以在创建 Amazon RDS 数据库实例时启用加密，但不能在创建后启用加密。但是，您可以通过创建数据库实例的快照，然后创建该实例的加密副本，向未加密的数据库实例添加加密。快照。然后，您可以从加密快照还原数据库实例，**以获得原始数据库实例的加密副本**。”
@@ -177,9 +191,19 @@ Amazon RDS 是适用于**在线事务处理（OLTP）应用程序的数据库服
 
 DAX 代表 DynamoDB Accelerator，它就像 DynamoDB 表的涡轮增压器。它是完全托管的内存缓存，可提高 DynamoDB 表的读写性能，因此您可以比以往更快地获取数据。
 
+
+
+## Database Migration Service（DMS）
+
+
+
 ## Lambda
 
 要为现有函数配置 VPC，请执行以下操作： 1. 打开 Lambda 控制台的函数页面。2. 选择一个功能。3. 选择配置，然后选择 VPC。4. 在 VPC 下，选择编辑。5. 选择 VPC、子网和安全组。
+
+
+
+比glue或EMR的成本低的多
 
 ## Kinesis
 
@@ -189,7 +213,7 @@ DAX 代表 DynamoDB Accelerator，它就像 DynamoDB 表的涡轮增压器。它
 
 Amazon Kinesis Data Firehose 是将流数据加载到数据存储和分析工具的最简单方法。它可以捕获、转换流数据并将其加载到 Amazon S3、Amazon Redshift、Amazon Elasticsearch 服务和 Splunk 中，使用您目前已经使用的现有商业智能工具和仪表板实现近实时分析。
 
-数据不应丢失、持久性和按到达顺序流化数据。Kinesis 可以很好地完成这项工作，因为它的架构。Kinesis 数据流是一组具有一系列数据记录的碎片，每个数据记录都有一个由Kinesis 的数据流分配的序列号。Kinesis 还可以轻松处理发送到服务的大量消息。亚马逊 Kinesis 数据流支持流式大数据的实时处理。它提供记录排序，以及以相同顺序读取和/或重放记录到多个 Amazon Kinesis 应用程序的能力。Amazon Kinesis 客户端库（KCL）将给定分区密钥的所有记录交付给同一记录处理器，从而更容易构建从同一 Amazon Kines 数据流读取的多个应用程序（例如，执行计数、聚合和过滤）。
+数据不应丢失、持久性和**按到达顺序流化数据**。Kinesis 可以很好地完成这项工作，因为它的架构。Kinesis 数据流是一组具有一系列数据记录的碎片，每个数据记录都有一个由Kinesis 的数据流分配的序列号。Kinesis 还可以轻松处理发送到服务的大量消息。亚马逊 Kinesis 数据流支持流式大数据的实时处理。它提供**记录排序**，以及以相同顺序读取和/或重放记录到多个 Amazon Kinesis 应用程序的能力。Amazon Kinesis 客户端库（KCL）将给定分区密钥的所有记录交付给同一记录处理器，从而更容易构建从同一 Amazon Kines 数据流读取的多个应用程序（例如，执行计数、聚合和过滤）。
 
 AWS 数据管道创建管道来处理消息是不正确的，因为它主要用作基于**云的数据工作流服务**，帮助您在**不同 AWS 服务和内部数据源之间**处理和移动数据。它不适用于从分布式源（如用户、物联网设备或点击流）收集数据。
 
@@ -198,6 +222,8 @@ AWS 数据管道创建管道来处理消息是不正确的，因为它主要用�
 **具备实时处理能力**
 
 Amazon Kinesis 数据流支持重硬，这使您可以调整流中的碎片数量，以适应流中数据流量的变化。重硬被认为是一种高级操作。有两种类型的重硬操作：碎片分割和碎片合并。在碎片分割中，将单个碎片分割为两个碎片。在碎片合并中，将两个碎片合并为一个碎片。重硬始终是成对的，即不能在一次操作中拆分为两个以上的碎片，也不能在一个操作中合并两个以上碎片。重硬操作所作用的碎片或碎片对称为父碎片。重硬操作产生的碎片或碎片对称为子碎片。拆分会增加流中的碎片数，从而增加流的数据容量。因为您是按每个碎片收费的，所以拆分会增加流的成本。类似地，合并减少了流中的碎片数量，因此降低了流的数据容量和成本。如果数据速率增加，还可以增加分配给流的碎片数，以保持应用程序性能。您可以使用 UpdateShareCount API重新硬存储流。**Amazon Kinesis 数据流的吞吐量**旨在**通过增加数据流中的碎片数量**来无限制地扩展。
+
+
 
 ## Redshift 
 
@@ -313,6 +339,8 @@ https://tutorialsdojo.com/aws-cloudtrail/
 
 AWS DataSync 允许您复制包含数百万文件的大型数据集，而无需使用开源工具构建自定义解决方案，也无需许可和管理昂贵的商业网络加速软件。
 
+完全托管的数据传输服务，可简化自动化和加速本地存储系统与amazon s3，efs或者fsx for windows file server之间的数据传输。
+
 ## EFA
 
 elasticfabric-adapter
@@ -413,7 +441,11 @@ AWS Storage Gateway Volume Gateway 提供两种连接 iSCSI 存储的配置，�
 
 使用 AWS Transit Gateway，您可以简化多个 VPC 之间的连接，也可以通过单个 VPN 连接连接到连接到 AWSTransition Gateway 的任何 VPC。AWS Transit Gateway 还使您能够通过多个 VPN 隧道的等成本多路径（ECMP）路由支持来扩展 IPsec VPN 吞吐量。
 
+Transit Gateway支持跨aws区域的对等连接，允许您在不同区域的vpc之间建立连接，而无需复杂的vpc对等配置。这简化了跨区域vpc通信的管理。
+
 “向 VPC 添加更多虚拟专用网关并启用等成本多路径路由（ECMR）以获得更高的 VPN 带宽”的选项是不正确的，因为 **VPC 一次只能连接一个虚拟专用网关。**
+
+
 
 ## DataSync
 
@@ -433,6 +465,14 @@ Https://tutorialsdojo.com/amazon-route-53/
 
 延迟不正确，因为您无法使用此路由策略为 2 个 EC2 实例设置特定的流量百分比。延迟路由策略主要用于在多个 AWS 区域中拥有资源时，以及需要自动将流量路由到特定 AWS 区域，以提供最佳延迟和较少往返时间时。
 
+多值应答路由
+
+多值应答路由允许您将 Amazon Route 53 配置为返回多个值（如您的 Web 服务器的 IP 地址）来响应 DNS 查询。您可以为几乎任意记录指定多个值，但多值应答路由也允许您检查每个资源的运行状况，以便 Route 53 只返回正常资源的值。
+
+虽然它不能替代负载均衡器，但由于其具备返回多个可进行运行状况检查的 IP 地址的能力，您可以将它与 DNS 配合使用，以提高可用性和负载均衡性。
+
+要将流量以**近乎随机的方式路由到多个资源**（如 Web 服务器），请为每个资源创建一条多值应答记录，并（可选）将 Route 53 运行状况检查与每条记录关联。Route 53 通过最多八条正常记录响应 DNS 查询，并向不同的 DNS 解析程序提供不同的应答。如果 Web 服务器在解析程序缓存响应后变得不可用，则客户端软件可以尝试响应中提供的其他 IP 地址。
+
 ## CloudFront
 
 Amazon CloudFront 是一个内容交付网络 (**CDN**)，可加快静态和动态 Web 内容（例如 HTML、CSS、JavaScript、图像和视频）的交付速度。通过使用 CloudFront，该公司可以从更靠近欧洲用户的边缘站点分发其网站内容，从而减少这些用户的加载时间。要使用 CloudFront，该公司可以设置一个指向其在美国的本地服务器的自定义源。然后，CloudFront 将在世界各地的边缘位置缓存网站内容，并从距离用户最近的位置向用户提供内容。这将使该公司能够优化欧洲用户的加载时间，而无需将网站后端移动到其他地区。
@@ -445,7 +485,7 @@ OAI 提供 CloudFront 和 S3 之间的安全访问，而无需公开暴露 S3 �
 
 CloudFront 不适用于 DNS
 
-Global Accelerator 提高了 TCP/UDP 流量的可用性和性能，而不是基于 HTTP 的内容交付。DataSync 和 SQS 不是适用于 CloudFront 等全球 CDN 的技术。
+
 
 ## HSM
 
@@ -479,11 +519,21 @@ CMP 健康检查和 FTP 健康检查不正确，因为它们不受支持。TCP �
 
 **负载平衡器**仅在其各自的区域内分配流量，默认情况下不分配到其他 AWS 区域。尽管网络负载均衡器支持跨不同 AWS 区域的对等 VPC 中从客户端到基于 IP 的目标的连接，但该场景没有提到 VPC 彼此对等
 
+## ALB
+
+选项 B 使用 ALB 的会话关联性（粘性会话）是不够的，因为这仅允许将会话数据存储在单个 EC2 实例上，而无法跨多个可用区进行扩展。
+
+默认情况下，Application Load Balancer 会根据选定负载均衡算法将每项请求单独路由到已注册的目标。但是，您可以使用粘性会话功能（也称为会话关联），使负载均衡器能够将用户会话绑定到特定的目标。这可确保在会话期间将来自用户的所有请求发送到同一目标中。对于维护状态信息以便向客户端提供持续体验的服务器来说，此功能很有用。要使用粘性会话，客户端必须支持 Cookie。
+
 ## Direct Connect 
 
 AWS Direct Connect 通过标准以太网光纤电缆将您的内部网络链接到 AWS **直接连接**位置。电缆的一端连接到路由器，另一端连接到 AWS 直连路由器。通过这种连接，您可以直接创建到公共 AWS 服务（例如，到 Amazon S3）或到 Amazon VPC 的虚拟接口，绕过网络路径中的互联网服务提供商。AWS 直接连接位置提供了对其关联区域内 AWS 的访问。
 
 具有同等成本多路径路由（ECMP）的中转网关”选项不正确，因为中转网关通常用于通过中央集线器连接多个 VPC 和内部网络。与 transit VPC 一样，transit 网关**无法建立与您的内部网络的直接和专用连接**。AWS 站点到站点 VPN 的选项不正确，因为这种类型的连接跨越公共互联网。此外，与基于互联网的解决方案相比，它不能提供高带宽吞吐量和更一致的网络体验。
+
+专用连接：1Gbps，10，100
+
+托管连接：50Mbps，100,200
 
 ## Systems Manager
 
@@ -502,6 +552,10 @@ AWS Glue 是一种完全受管理的提取、转换和加载（ETL）服务，�
 ## Global Accelerator 
 
 AWS Global Accelerator 是一项服务，可提高本地或全球用户应用程序的可用性和性能。它提供静态 IP 地址，作为单个或多个 AWS 区域中应用程序端点的固定入口点，例如应用程序负载均衡器、网络负载均衡器或Amazon EC2 实例。当应用程序使用量增加时，您需要管理的 IP 地址和端点的数量也会增加增长 AWS 全球加速器允许您向上或向下扩展网络。AWS 全局加速器允许您将区域资源（如负载平衡器和 EC2实例）与两个静态 IP 地址相关联。在客户端应用程序、防火墙和 DNS 记录中，您只能将这些地址列入白名单一次。使用 AWS 全局加速器，您可以添加或删除 AWS 区域中的端点，运行蓝色/绿色部署和 A/B 测试，而无需更新客户端应用程序中的 IP 地址。这对于无法频繁更新客户端应用程序的物联网、零售、媒体、汽车和医疗保健用例尤其有用。如果您在多个地区拥有多个资源，则可以使用 AWS 全局加速器来减少 IP 地址的数量。通过创建端点组，您可以将来自单个区域的所有 EC2 实例添加到该组中。可以为其他区域中的实例添加其他端点组。之后，您可以将适当的 ALB 端点关联到每个端点组。创建的加速器将有两个静态 IP 地址，可用于在防火墙设备中创建安全规则。您可以使用 AWS Global Accelerator 的静态 IP 地址来自动化该过程并消除重复任务，而不是定期在防火墙中添加 Amazon EC2 IP 地址。
+
+AWS Global Accelerator,此服务主要用于优化从用户到应用程序的路径，从而提高 **TCP 和 UDP** 流量的性能
+
+Transfer Acceleration S3 传输加速（S3TA）减少了可能影响传输的互联网路由、拥塞和速度的可变性，并从逻辑上缩短了远程应用到 S3 的距离。S3TA 通过 Amazon CloudFront 全球分布的边缘位置和AWS 骨干网络路由流量，并通过网络协议优化，提高传输性能。因此，转移加速度是正确答案。
 
 ## CloudFormation 
 
@@ -529,19 +583,53 @@ Lambda 函数由代码和任何相关的依赖项组成。此外，Lambda 函数
 
 可以比较实例类型
 
-## Macie
 
-自动扫描S3中的对象，并识别个人身份信息
 
 ## Fargate
 
 无服务器容器基础设施，允许用户无需预配置和管理服务器或集群，就能在生成环境中运行和扩展容器应用程序。
 
-Textact用于从PDF和JPEG报告中提取文本，Amazon Comprehend Medical是一种专门针对医疗领域的自然语言处理服务，可以用于识别和提取文本中的PHI
+## Textact
+
+用于从PDF和JPEG报告中提取文本，
+
+
+
+## Amazon Comprehend Medical
+
+是一种专门针对医疗领域的自然语言处理服务，可以用于识别和提取文本中的PHI
 
 ## 安全组和NACL
 
 ![image-20240205215057267](C:\Users\Jupiter\AppData\Roaming\Typora\typora-user-images\image-20240205215057267.png)
+
+## Web 服务器规则
+
+以下入站规则允许来自任何 IP 地址的 HTTP 和 HTTPS 访问。如果您为 VPC 启用了 IPv6，则可添加规则以控制来自 IPv6 地址的入站 HTTP 和 HTTPS 流量。
+
+| 协议类型 | 协议编号 | 端口        | 源 IP     | 备注                                     |
+| :------- | :------- | :---------- | :-------- | :--------------------------------------- |
+| TCP      | 6        | 80 (HTTP)   | 0.0.0.0/0 | 允许来自任何 IPv4 地址的入站 HTTP 访问。 |
+| TCP      | 6        | 443 (HTTPS) | 0.0.0.0/0 | 允许来自任何 IPv4 地址的入站 HTTPS 访问  |
+| TCP      | 6        | 80 (HTTP)   | ::/0      | 允许来自任何 IPv6 地址的入站 HTTP 访问   |
+| TCP      | 6        | 443 (HTTPS) | ::/0      | 允许来自任何 IPv6 地址的入站 HTTPS 访问  |
+
+## 数据库服务器规则
+
+以下入站规则是您可以为数据库访问添加的规则示例，具体取决于您在实例运行的数据库类型。有关 Amazon RDS 实例的更多信息，请参阅 [Amazon RDS 用户指南](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/)。
+
+对于源 IP，请指定以下其中一项：
+
+- 本地网络中的特定 IP 地址或 IP 地址范围（采用 CIDR 块表示法）
+- 访问数据库的一组实例的安全组 ID
+
+| 协议类型 | 协议编号 | 端口                | 备注                                                         |
+| :------- | :------- | :------------------ | :----------------------------------------------------------- |
+| TCP      | 6        | 1433 (MS SQL)       | 访问 Microsoft SQL Server 数据库的默认端口，例如，在 Amazon RDS 实例上 |
+| TCP      | 6        | 3306 (MYSQL/Aurora) | 访问 MySQL 或 Aurora 数据库的默认端口，例如，在 Amazon RDS 实例上 |
+| TCP      | 6        | 5439 (Redshift)     | 访问 Amazon Redshift 集群数据库的默认端口。                  |
+| TCP      | 6        | 5432 (PostgreSQL)   | 访问 PostgreSQL 数据库的默认端口，例如，在 Amazon RDS 实例上 |
+| TCP      | 6        | 1521 (Oracle)       | 访问 Oracle 数据库的默认端口，例如，在 Amazon RDS 实例上     |
 
 ## AWS KMS
 
@@ -565,6 +653,8 @@ Shield - Amazon Elastic Compute Cloud (EC2)、Elastic Load Balancing (ELB)、Ama
 
 使用标准sql在s3中查询
 
+也可查询搜索CloudTrail日志
+
 ## QuickSight
 
 ![image-20240206200655189](C:\Users\Jupiter\AppData\Roaming\Typora\typora-user-images\image-20240206200655189.png)
@@ -573,13 +663,23 @@ Shield - Amazon Elastic Compute Cloud (EC2)、Elastic Load Balancing (ELB)、Ama
 
 ## AWS Control Tower 
 
+**设置并管理安全的多账户 AWS 环境**
+
+区域拒绝和防护栏可帮助您满足数据驻留要求
+
 ## AWS Organizations
+
+将账户组织到单位组织OU，定义并附加服务控制策略SCP以控制EC2实例类型的使用。
 
 ## AWS Transfer 
 
 AWS Transfer 系列使用 SFTP、FTPS、FTP 和 AS2 协议将您的定期企业对企业文件传输安全地扩展到 AWS 存储服务。https://aws.amazon.com/aws-transfer-family/
 
 对于考试：每当您看到 SFTP 时，FTP 都会在可用选项中查找“传输”
+
+
+
+Aws transfer family
 
 ## Elastic Beanstalk
 
@@ -591,7 +691,9 @@ Lake Formation 支持在 AWS 上创建安全且可扩展的数据湖，从而允
 
 ## ElastiCache 
 
-正确答案是 A。使用 Amazon ElastiCache 管理和存储会话数据。为了支持这种场景下的分布式会话数据管理，需要使用分布式数据存储，例如Amazon ElastiCache。这将允许跨多个可用区的多个 EC2 实例存储和访问会话数据，这对于可扩展且高度可用的架构是必需的。选项 B 使用 ALB 的会话关联性（粘性会话）是不够的，因为这仅允许将会话数据存储在单个 EC2 实例上，而无法跨多个可用区进行扩展。选项 C 和 D 使用 Session Manager 和 AWS STS 中的 GetSessionToken API 操作，与会话数据管理无关，并且不是适合此场景的解决方案。
+正确答案是 A。使用 Amazon ElastiCache 管理和存储会话数据。为了支持这种场景下的分布式会话数据管理，需要使用分布式数据存储，例如Amazon ElastiCache。这将允许跨多个可用区的多个 EC2 实例存储和访问会话数据，这对于可扩展且高度可用的架构是必需的。
+
+选项 B 使用 ALB 的会话关联性（粘性会话）是不够的，因为这仅允许将会话数据存储在单个 EC2 实例上，而无法跨多个可用区进行扩展。选项 C 和 D 使用 Session Manager 和 AWS STS 中的 GetSessionToken API 操作，与会话数据管理无关，并且不是适合此场景的解决方案。
 
 ##  AWS 滚雪球
 
@@ -607,7 +709,13 @@ ec2:* 允许完全控制 EC2 实例，因此 C 是正确的 该策略仅向 IAM 
 
 ## AWS Backup
 
-A. 建议使用 AWS Backup（一种集中式备份管理服务）来保留 RDS 备份。创建备份保管库，并定义备份计划，其中包含每日计划和 2 年备份保留期。 RDS 数据库实例分配给此备份计划。 B. 它没有满足一致和可恢复备份的要求。快照是时间点备份，可能无法提供所需的一致性级别。 C. 它并非旨在提供数据库所需的备份和恢复功能。它不能确保备份的一致性或提供简单的恢复机制。 D. 它没有解决每日备份和保留一致备份的要求。它更侧重于复制和更改数据捕获，而不是备份和恢复。
+A. 建议使用 AWS Backup（一种集中式备份管理服务）来保留 RDS 备份。创建备份保管库，并定义备份计划，其中包含每日计划和 2 年备份保留期。 RDS 数据库实例分配给此备份计划。 
+
+完全托管，基于策略的备份解决方案。
+
+
+
+B. 它没有满足一致和可恢复备份的要求。快照是时间点备份，可能无法提供所需的一致性级别。 C. 它并非旨在提供数据库所需的备份和恢复功能。它不能确保备份的一致性或提供简单的恢复机制。 D. 它没有解决每日备份和保留一致备份的要求。它更侧重于复制和更改数据捕获，而不是备份和恢复。
 
 ## AWS Systems Manager 
 
@@ -626,3 +734,27 @@ A. 建议使用 AWS Backup（一种集中式备份管理服务）来保留 RDS �
 ## gateway endpoint
 
 使用网关端点是错误的，因为网关端点仅支持 S3 和 dynamoDB，所以 B 是正确的
+
+## Transfer Family SFTP
+
+serverless
+
+
+
+## APP FLOW
+
+
+
+## EIGW
+
+进出口的互联网网关
+
+转为IPv6 VPC设计 提供出站IPv6互联网访问，同时组织入站IPv6流量。它满足防止外部服务发起与EC2实例的链接，同时允许实例发起出站通信请求。
+
+## Amazon Managed Streaming for Apache Kafka (MSK)
+
+利用完全托管、高度可用的 Apache Kafka 服务安全地流式传输数据
+
+## AWS Trusted Advisor
+
+优化成本、提高性能并解决安全漏洞
